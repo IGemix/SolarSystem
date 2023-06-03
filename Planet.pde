@@ -8,6 +8,8 @@ class Planet
 
     float orbitSpeed;
     PVector v;
+
+    PVector[] bezier_points;
     
     PShape globe;
 
