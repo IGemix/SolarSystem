@@ -1,114 +1,59 @@
-class Planet
-{
+class Planet {
     float radius;
-    float angle;
     float distance;
+    float speed;
+    float angle;
 
-    Planet[] planets;
-    Planet planet1;
-    
-    float orbitSpeed;
-    PVector v;
+    ArrayList<Planet> moons;
 
-    PVector[] bezier_points;
-    
     PShape globe;
 
-    Planet(float radius, float distance, float orbitSpeed, PImage img)
-    {
-        v = PVector.random3D();
-        
+    Planet(float radius, float distance, float speed, int index) {
         this.radius = radius;
         this.distance = distance;
+        this.speed = speed;
+        this.angle = 0;
         
-        v.mult(distance);
-
-        this.angle = random(TWO_PI);
-        this.orbitSpeed = orbitSpeed;
-
-        noStroke();
-        noFill();
+        moons = new ArrayList();
+        
+        index = int(random(0, textures.length));
         
         globe = createShape(SPHERE, radius);
-        globe.setTexture(img);
-    } 
-
-    void Orbit()
-    {
-        angle += orbitSpeed;
-
-        if (planets != null)
-        {
-            for (int i = 0; i < planets.length; i++) 
-            {
-                planets[i].Orbit();  
-            }
-        }
+        globe.setTexture(textures[index]);  
     }
 
-    void SpawnMoons(int total, int level, float orbitSpeed, int dist)
-    {
-        planets = new Planet[total];
-
-        for (int i = 0; i < planets.length; i++) 
-        {
-            float moonRadius = radius / (level * 2);
-            float moonDistance = dist;
-            float moonOrbitSpeed = orbitSpeed;
-
-            int index = int(random(0, textures.length));
-
-            planets[i] = new Planet(moonRadius, moonDistance, moonOrbitSpeed, textures[index]);
-            if (level < 2)
-            {
-                int num = 1;
-                planets[i].SpawnMoons(num, level + 1, 0.05, dist);
-            }
-        }
+    void AddMoon(Planet moon) {
+        println(moons.size());
+        moons.add(moon);
     }
 
-    void SpawnPlanets(int level, float orbitSpeed, int dist)
-    {
-        float moonRadius = radius / (level * 2);
-        float moonDistance = dist;
-        float moonOrbitSpeed = orbitSpeed;
+    void Update() {
+        angle += speed;
         
-        int index = int(random(0, textures.length));
-        planet1 = new Planet(moonRadius, moonDistance, moonOrbitSpeed, textures[index]);
-
-        if (level < 1)
+        for (Planet moon : moons)
         {
-            planet1.SpawnPlanets(level + 1, orbitSpeed, dist);
+            moon.Update();
         }
+        
     }
 
-    void Show()
-    {
+    void Display() {
+        float x = distance * cos(angle);
+        float z = distance * sin(angle);
+
         pushMatrix();
-
-        PVector p = v.cross(new PVector(1, 0, 1));
-
-        rotate(angle, p.x, p.y, p.z);
         
         stroke(255);
-        
-        // Axis Visualizer
-        //line(0, 0, 0, v.x, v.y, v.z); // Show connection with the planets
-        //line(0, 0, 0, p.x * 10, p.y * 10, p.z * 10); // Show axis of the rotation
-
-        translate(v.x, v.y, v.z);
-
-        noStroke();
-        
+        translate(x, 0, z);
         fill(255);
+        noStroke();
         shape(globe);
-        //sphere(radius);
-
-        if (planet1 != null)
+        
+        for (Planet moon : moons)
         {
-            planet1.Show();
+            moon.Display();
         }
-
+        
         popMatrix();
     }
 }
