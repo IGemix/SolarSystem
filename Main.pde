@@ -4,7 +4,7 @@ Planet sun;
 
 PImage sunTexture;
 
-PImage[] textures = new PImage[27];
+PImage[] textures = new PImage[1];
 
 void setup() 
 {
@@ -15,7 +15,7 @@ void setup()
     LoadFiles();
     
     sun = new Planet(50, 0, 0, sunTexture);
-    sun.SpawnMoons(2, 1);
+    sun.SpawnPlanets(3, 0.05, 50);
 }
 
 void draw() 

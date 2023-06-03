@@ -5,7 +5,8 @@ class Planet
     float distance;
 
     Planet[] planets;
-
+    Planet planet1;
+    
     float orbitSpeed;
     PVector v;
 
@@ -28,8 +29,6 @@ class Planet
         noStroke();
         noFill();
         
-        //fill(random(255), random(255), random(255)); // To see if it works
-        
         globe = createShape(SPHERE, radius);
         globe.setTexture(img);
     } 
@@ -47,15 +46,15 @@ class Planet
         }
     }
 
-    void SpawnMoons(int total, int level)
+    void SpawnMoons(int total, int level, float orbitSpeed, int dist)
     {
         planets = new Planet[total];
 
         for (int i = 0; i < planets.length; i++) 
         {
             float moonRadius = radius / (level * 2);
-            float moonDistance = random((radius + moonRadius), (radius + moonRadius) * 2);
-            float moonOrbitSpeed = random(-0.1, 0.1);
+            float moonDistance = dist;
+            float moonOrbitSpeed = orbitSpeed;
 
             int index = int(random(0, textures.length));
 
@@ -63,8 +62,23 @@ class Planet
             if (level < 2)
             {
                 int num = 1;
-                planets[i].SpawnMoons(num, level + 1);
+                planets[i].SpawnMoons(num, level + 1, 0.05, dist);
             }
+        }
+    }
+
+    void SpawnPlanets(int level, float orbitSpeed, int dist)
+    {
+        float moonRadius = radius / (level * 2);
+        float moonDistance = dist;
+        float moonOrbitSpeed = orbitSpeed;
+        
+        int index = int(random(0, textures.length));
+        planet1 = new Planet(moonRadius, moonDistance, moonOrbitSpeed, textures[index]);
+
+        if (level < 1)
+        {
+            planet1.SpawnPlanets(level + 1, orbitSpeed, dist);
         }
     }
 
@@ -90,12 +104,9 @@ class Planet
         shape(globe);
         //sphere(radius);
 
-        if (planets != null)
+        if (planet1 != null)
         {
-            for (int i = 0; i < planets.length; ++i) 
-            {
-                planets[i].Show();
-            }
+            planet1.Show();
         }
 
         popMatrix();
