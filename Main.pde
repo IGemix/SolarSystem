@@ -4,7 +4,7 @@ Planet sun;
 
 PImage sunTexture;
 
-PImage[] textures = new PImage[100];
+PImage[] textures = new PImage[27];
 
 void setup() 
 {
@@ -21,9 +21,7 @@ void setup()
 void draw() 
 {
     background(0);
-    //lights();
-    pointLight(255, 255, 255, 0, 0, 0);
-    //ambientLight(102, 102, 102);
+    lights();
     translate(width / 2, height / 2);
     
     sun.Show();

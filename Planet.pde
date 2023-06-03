@@ -62,7 +62,7 @@ class Planet
             planets[i] = new Planet(moonRadius, moonDistance, moonOrbitSpeed, textures[index]);
             if (level < 2)
             {
-                int num = 1; //int(random(0, 4));
+                int num = 1;
                 planets[i].SpawnMoons(num, level + 1);
             }
         }
@@ -79,8 +79,8 @@ class Planet
         stroke(255);
         
         // Axis Visualizer
-        line(0, 0, 0, v.x, v.y, v.z); // Show connection with the planets
-        line(0, 0, 0, p.x * 10, p.y * 10, p.z * 10); // Show axis of the rotation
+        //line(0, 0, 0, v.x, v.y, v.z); // Show connection with the planets
+        //line(0, 0, 0, p.x * 10, p.y * 10, p.z * 10); // Show axis of the rotation
 
         translate(v.x, v.y, v.z);
 
