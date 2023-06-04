@@ -10,7 +10,7 @@ class Constellation
     {
       if(i < 1)
       {
-        total_stars[i] = new Constellation_Star(init_pos, new PVector(0.0,0.0));
+        total_stars[i] = new Constellation_Star(initial_position, new PVector(0.0,0.0));
       }
       else
       {
@@ -22,11 +22,12 @@ class Constellation
    
   void compute_constellation()
   {
-    /*for (int i = 0; i < total_stars.length; ++i)
+    for (int i = 0; i < total_stars.length; ++i)
     {
-      
+      total_stars[i].star_movement();
+      total_stars[i].display_star(); 
     }
-    */
+    
   }
 }
 
