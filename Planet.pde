@@ -23,8 +23,6 @@ class Planet {
         moons = new ArrayList();
         orbitPos = new ArrayList();
         
-        index = int(random(0, textures.length));
-        
         globe = createShape(SPHERE, radius);
         globe.setTexture(textures[index]);  
         globe.setStroke(false);
