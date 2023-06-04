@@ -20,7 +20,7 @@ class EulerSolver
         speedLimit = 1;
 
         masa = 1.0;
-        deltaT = 0.04;
+        deltaT = 0.4;
     }
 
     void Solver()
@@ -30,6 +30,7 @@ class EulerSolver
 
         force.x = 0.0;
         force.y = 9.8;
+        
         if (vel.x > speedLimit || vel.y > speedLimit)
         {
             vel.y = speedLimit; 
@@ -39,12 +40,14 @@ class EulerSolver
             accel.x = force.x / masa;
             accel.y = force.y / masa;
         }
+        
         vel.x += accel.x * deltaT;
         vel.y += accel.y * deltaT;
 
         pos.x += vel.x * deltaT;
         pos.y += vel.y * deltaT; 
     }
+
 
     PVector GetPosition()
     {

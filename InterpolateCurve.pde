@@ -10,12 +10,16 @@ class InterpolateCurve
     color curveColor;
     int curveWeight;
 
+    float curvePoint = 0;
+    float speed = 0.04;
+
     InterpolateCurve(PVector[] controlPoints, int numOfPoints, color curveColor, int curveWeight)
     {
         this.controlPoints = new PVector[4];
         this.controlPoints = controlPoints;
 
         this.coefficients = new PVector[4];
+        
         for (int i = 0; i < this.coefficients.length; i++)
         {
             this.coefficients[i] = new PVector(0, 0);
@@ -30,7 +34,6 @@ class InterpolateCurve
     
     void CalculateCoefficient()
     {
-
         /*
         INTERPOLATION FORMULA
         C0 = P0
@@ -52,6 +55,25 @@ class InterpolateCurve
         coefficients[3].y = -4.5 * controlPoints[0].y + 13.5 * controlPoints[1].y - 13.5 * controlPoints[2].y + 4.5 * controlPoints[3].y;
     }
 
+     void MoveItem()
+    {
+        curvePoint += speed;
+        
+        float x = coefficients[0].x +
+        coefficients[1].x * curvePoint +
+        coefficients[2].x * curvePoint * curvePoint + 
+        coefficients[3].x * curvePoint * curvePoint * curvePoint;
+        
+        float y = coefficients[0].y + 
+        coefficients[1].y * curvePoint +
+        coefficients[2].y * curvePoint * curvePoint +
+        coefficients[3].y * curvePoint * curvePoint * curvePoint;
+
+        strokeWeight(100);
+        stroke(0,0,255);
+        point(x, y);
+    }
+    
     void DrawCurve()
     {
         ArrayList<PVector> lineBetweenPoints = new ArrayList<PVector>(); 

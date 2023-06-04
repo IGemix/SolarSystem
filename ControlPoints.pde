@@ -10,19 +10,18 @@ class ControlPoints
     
     void OrbitPoints()
     {
-        controlPoints[0] = new PVector(1000, 0);
-        controlPoints[1] = new PVector(0, 1000);
-        controlPoints[2] = new PVector(1000, 0);
-        controlPoints[3] = new PVector(0, 1000);
-
+        controlPoints[0] = new PVector(random(-width, width), -height);
+        controlPoints[1] = new PVector(random(-width, width), -height + (height / 2));
+        controlPoints[2] = new PVector(random(-width, width), height - (height / 2));
+        controlPoints[3] = new PVector(random(-width, width), height);
     }
     
     void RandomizePoints()
     {
         for (int i = 0; i < controlPoints.length; ++i) 
         {
-            float x = random(width);
-            float y = random(height);
+            float x = random(-width, width);
+            float y = random(-height, height);
 
             controlPoints[i] = new PVector(x, y);
         }
