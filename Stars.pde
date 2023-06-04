@@ -28,7 +28,7 @@ class Star
             pos.x = random(-width, width);
         }
     }
-
+    
     void Display()
     {
         stroke(255);
