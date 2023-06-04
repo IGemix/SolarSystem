@@ -37,9 +37,9 @@ void setup()
     planet2.AddMoon(moon2);
     planet3.AddMoon(moon3);
 
-    estereoscopia = new Camera3D(this);  // Constructor
-    estereoscopia.setBackgroundColor(color(192));  // El color de fondo es un gris claro
-    estereoscopia.renderDefaultAnaglyph().setDivergence(0);  // La divergencia siempre sera un numero pequeño
+    estereoscopia = new Camera3D(this); 
+    estereoscopia.setBackgroundColor(color(255));
+    estereoscopia.renderDefaultAnaglyph().setDivergence(0); 
 }
 
 void draw() 
@@ -65,6 +65,7 @@ void UpdatePlanets()
 void DisplayPlanets()
 {
     sun.Display();
+    lights();
     planet1.Display();
     planet2.Display();
     planet3.Display();
