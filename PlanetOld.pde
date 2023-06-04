@@ -89,10 +89,9 @@ class PlanetOld
         PVector p = v.cross(new PVector(1, 0, 1));
 
         rotate(angle, p.x, p.y, p.z);
-        
-        stroke(255);
-        
+            
         // Axis Visualizer
+        //stroke(255);
         //line(0, 0, 0, v.x, v.y, v.z); // Show connection with the planets
         //line(0, 0, 0, p.x * 10, p.y * 10, p.z * 10); // Show axis of the rotation
 
