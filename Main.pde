@@ -16,10 +16,21 @@ Planet moon1;
 Planet moon2;
 Planet moon3;
 
+ArrayList<Star> stars;
+
 void setup() 
 {
     size(800, 600, P3D);
     LoadFiles();
+
+    stars = new ArrayList<Star>();
+
+    for(int i = 0; i < 500; i++)
+    {
+        float x = random(-width, width);
+        float y = random(height);
+        stars.add(new Star(x, y));
+    }
 
     sun = new Planet(50, 0, 0, 0, 0);
 
@@ -39,15 +50,21 @@ void setup()
 
     estereoscopia = new Camera3D(this); 
     estereoscopia.setBackgroundColor(color(255));
-    estereoscopia.renderDefaultAnaglyph().setDivergence(1); 
+    estereoscopia.renderDefaultAnaglyph().setDivergence(0); 
 }
 
 void draw() 
 {
     background(0);
-    translate(width / 2, height / 2, -500);
+    translate(width / 2, (height / 2) - 250, -500);
     rotateX(180);   
     
+    for (Star star : stars)
+    {
+        star.Update();
+        star.Display();
+    }
+
     UpdatePlanets();
     DisplayPlanets();
     ShowOrbitPlanets();
@@ -80,7 +97,6 @@ void ShowOrbitPlanets()
     sun.ShowOrbit(planet4);
     sun.ShowOrbit(planet5);
 }
-
 
 void LoadFiles()
 {
