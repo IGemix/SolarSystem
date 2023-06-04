@@ -26,12 +26,12 @@ void setup()
     planet1 = new Planet(15, 100, 0.001, 0, 1);
     planet2 = new Planet(25, 200, 0.002, 0, 2);
     planet3 = new Planet(40, 300, 0.005, 0, 3);
-    planet4 = new Planet(70, 400, 0.003, 0, 4);
-    planet5 = new Planet(50, 500, 0.0005, 0, 5);
+    planet4 = new Planet(70, 450, 0.003, 0, 4);
+    planet5 = new Planet(50, 600, 0.0005, 0, 5);
 
-    moon1 = new Planet(15, 35, 0.02, 0, 1);
-    moon2 = new Planet(10, 60, 0.02, 0, 1);
-    moon3 = new Planet(20, 60, 0.02, 0, 1);
+    moon1 = new Planet(15, 35, 0.02, 0, 0);
+    moon2 = new Planet(10, 60, 0.02, 0, 0);
+    moon3 = new Planet(20, 60, 0.02, 0, 0);
 
     planet1.AddMoon(moon1);
     planet2.AddMoon(moon2);
@@ -39,7 +39,7 @@ void setup()
 
     estereoscopia = new Camera3D(this); 
     estereoscopia.setBackgroundColor(color(255));
-    estereoscopia.renderDefaultAnaglyph().setDivergence(0); 
+    estereoscopia.renderDefaultAnaglyph().setDivergence(1); 
 }
 
 void draw() 
@@ -80,6 +80,8 @@ void ShowOrbitPlanets()
     sun.ShowOrbit(planet4);
     sun.ShowOrbit(planet5);
 }
+
+
 void LoadFiles()
 {
     java.io.File folder = new java.io.File(sketchPath("Textures/PlanetTextures"));

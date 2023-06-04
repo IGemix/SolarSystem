@@ -5,7 +5,8 @@ class Planet {
     float angle;
     float curveAmount;
     float orbitAngle;
-
+    float selfRotation;
+  
     ArrayList<Planet> moons;
     ArrayList<PVector> orbitPos;
 
@@ -16,10 +17,11 @@ class Planet {
         this.radius = radius;
         this.distance = distance;
         this.speed = speed;
-        this.angle = 0;
         this.curveAmount = curveAmount; 
+
         this.orbitAngle = 0;
-        
+        this.angle = 0;
+
         moons = new ArrayList();
         orbitPos = new ArrayList();
         
@@ -62,7 +64,7 @@ class Planet {
         fill(255);
         noStroke();
         shape(globe);
-        
+
         for (Planet moon : moons)
         {
             moon.Display();
