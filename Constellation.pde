@@ -1,7 +1,7 @@
 class Constellation
 {
   int num_stars;
-  PVector[] position_cons;
+  PVector position_cons;
   PVector velocity_cons;
   
   float mass, damping;
@@ -10,7 +10,7 @@ class Constellation
   
   boolean is_fixed;
   
-  constellation(int amount, PVector p, PVector v)
+  Constellation(int amount, PVector p, PVector v)
   {
     num_stars = amount;
     
