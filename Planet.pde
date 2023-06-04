@@ -75,6 +75,7 @@ class Planet {
     
     void ShowOrbit(Planet planet)
     {
+        strokeWeight(1);
         stroke(255);
         noFill();
         

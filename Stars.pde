@@ -18,26 +18,45 @@ class Star
         StartBezierCurve();
     }
     
+    void RestartCurves()
+    {
+        if(restartCurves)
+        {
+            StartInterpolateCurve();
+            StartBezierCurve();
+            restartCurves = false;
+        }
+    }
+    
     void Update()
     {
-        vel.y += gravity;
-        pos.add(vel);
-        
+        if (useEuler)
+        {
+            UseEulerSolver();
+        } 
+        else { 
+            vel.y += gravity;
+            pos.add(vel);
+        }
+
+        RestartCurves();
+  
         if (pos.y > height)
         {
             pos.y = -height;
             pos.x = random(-width, width);
         }
+   
     }
 
     void UseBezierCurve()
     {
-        
+        bezierCurve.MoveItem();
     }
     
     void UseInterpolateCurve()
     {
-        
+        interpolateCurve.MoveItem();
     }
     
     void UseEulerSolver()
@@ -61,10 +80,10 @@ class Star
         cp.OrbitPoints();
         controlPoints = cp.getControlPoints();
         
-        color curveColor = color(255, 255, 255);
+        color curveColor = color(255, 255, 0);
 
-        int curveWeight = 1;
-        int numOfPoints = 10;
+        int curveWeight = 2;
+        int numOfPoints = 30;
 
         interpolateCurve = new InterpolateCurve(controlPoints, numOfPoints, curveColor, curveWeight);
     }
@@ -77,10 +96,10 @@ class Star
         cp.OrbitPoints();
         controlPoints = cp.getControlPoints();
     
-        color curveColor = color(255, 255, 255);
+        color curveColor = color(255, 0, 255);
         
-        int curveWeight = 1;
-        int numOfPoints = 10;
+        int curveWeight = 2;
+        int numOfPoints = 30;
 
         bezierCurve = new BezierCurve(controlPoints, numOfPoints, curveColor, curveWeight);
     }

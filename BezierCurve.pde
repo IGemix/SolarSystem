@@ -8,13 +8,11 @@ class BezierCurve
     color curveColor;
     int curveWeight;
 
-    PVector pos;
-    int screenOffset = 15;
+    float curvePoint = 0;
+    float speed = 0.004;
 
     BezierCurve(PVector[] controlPoints, int numOfPoints, color curveColor, int curveWeight)
-    {
-        pos = new PVector(0, 0);
-      
+    {  
         this.controlPoints = new PVector[4];
         this.controlPoints = controlPoints;
     
@@ -55,7 +53,33 @@ class BezierCurve
         coefficients[3].x = -controlPoints[0].x + 3 * controlPoints[1].x - 3 * controlPoints[2].x + controlPoints[3].x;
         coefficients[3].y = -controlPoints[0].y + 3 * controlPoints[1].y - 3 * controlPoints[2].y + controlPoints[3].y;
     }
+    
+    void MoveItem()
+    {
+        curvePoint += speed;
+        
+        if(curvePoint >= 1)
+        {
+            curvePoint = 0;
+        }
+        
+        float x = coefficients[0].x +
+        coefficients[1].x * curvePoint +
+        coefficients[2].x * curvePoint * curvePoint + 
+        coefficients[3].x * curvePoint * curvePoint * curvePoint;
+        
+        float y = coefficients[0].y + 
+        coefficients[1].y * curvePoint +
+        coefficients[2].y * curvePoint * curvePoint +
+        coefficients[3].y * curvePoint * curvePoint * curvePoint;
 
+        strokeWeight(20);
+        stroke(255, 0, 255);
+        point(x, y);
+        strokeWeight(1);
+    }
+    
+   
     void DrawCurve()
     {
         ArrayList<PVector> lineBetweenPoints = new ArrayList<PVector>(); 
