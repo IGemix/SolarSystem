@@ -11,7 +11,8 @@ class Planet {
 
     PShape globe;
 
-    Planet(float radius, float distance, float speed, float curveAmount, int index) {
+    Planet(float radius, float distance, float speed, float curveAmount, int index) 
+    {
         this.radius = radius;
         this.distance = distance;
         this.speed = speed;
@@ -29,14 +30,17 @@ class Planet {
         globe.setStroke(false);
     }
 
-
-    void Update() {
+    void Update()
+    {
         angle += speed;
+        
         orbitAngle += 0.2;
+        
         DrawMoon();
     }
     
-    void AddMoon(Planet moon) {
+    void AddMoon(Planet moon) 
+    {
         moons.add(moon);
     }
 
@@ -48,7 +52,8 @@ class Planet {
         }
     }
 
-    void Display() {
+    void Display() 
+    {
         float x = distance * cos(angle);
         float y = distance * sin(angle);
         float z = curveAmount * sin(angle);
@@ -68,8 +73,19 @@ class Planet {
         popMatrix();
     }
     
-    void ShowOrbit()
+    void ShowOrbit(Planet planet)
     {
-      
+        stroke(255);
+        noFill();
+        
+        beginShape();
+        for(float angle = 0; angle < TWO_PI + 0.1; angle += 0.1)
+        {
+            float x = planet.distance * cos(angle);
+            float y = planet.distance * sin(angle);
+            float z = planet.curveAmount * sin(angle);
+            vertex(x, y, z);
+        }
+        endShape(CLOSE);
     }
 }

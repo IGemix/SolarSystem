@@ -1,70 +1,76 @@
 import java.io.File;
+import camera3D.Camera3D; 
+
+Camera3D estereoscopia; 
 
 PImage sunTexture;
 PImage[] textures;
 
-int dim = 100;
-float x[] = new float[dim];
-float y[] = new float[dim];
-float t = 0;
-
 Planet sun;
-Planet earth;
-Planet mars;
-Planet moon;
+Planet planet1;
+Planet planet2;
+Planet planet3;
+Planet planet4;
+Planet planet5;
+Planet planet6;
+
+Planet moon1;
+Planet moon2;
 
 void setup() 
 {
     size(800, 600, P3D);
-    
     LoadFiles();
-    //LoadStars();
 
     sun = new Planet(50, 0, 0, 0, 1);
 
-    earth = new Planet(20, 150, 0.01, 100, 1);
+    planet1 = new Planet(20, 150, 0.01, 300, 1);
+    planet2 = new Planet(15, 200, 0.02, 600, 1);
+    planet3 = new Planet(30, 250, 0.005, 200, 1);
+    planet4 = new Planet(40, 300, 0.02, 500, 1);
+    planet5 = new Planet(20, 350, 0.001, 400, 1);
+    planet6 = new Planet(10, 400, 0.01, 50, 1);
 
-    mars = new Planet(15, 200, 0.02, 300, 1);
-
-    moon = new Planet(5, 30, 0.05, 10, 1);
-      
-    earth.AddMoon(moon);
+    moon1 = new Planet(5, 30, 0.05, 50, 1);
+    moon2 = new Planet(30, 50, 0.05, 0, 1);
+    
+    planet1.AddMoon(moon1);
+    planet3.AddMoon(moon2);
+   
+    estereoscopia = new Camera3D(this);  // Constructor
+    estereoscopia.setBackgroundColor(color(192));  // El color de fondo es un gris claro
+    estereoscopia.renderDefaultAnaglyph().setDivergence(0);  // La divergencia siempre sera un numero pequeño
 }
 
 void draw() 
 {
     background(0);
-    translate(width / 2, height / 2);
-    
-    /*
-    for(int i = 0; i < x.length; i++)
-    {
-        ellipse(x[i], y[i], 0.5 * sin(t + i / 2) + 2, 0.5 * sin(t + i / 2) + 2);
-    }
-    */
-
+    translate(width / 2, height / 2, -500);
+    rotateY(PI/3);    
     sun.Update();
-    earth.Update();
-    mars.Update();
-    
-    sun.angle = earth.angle;
+    planet1.Update();
+    planet2.Update();
+    planet3.Update();
+    planet4.Update();
+    planet5.Update();
+    planet6.Update();
+
+    sun.angle = planet1.angle;
     
     sun.Display();
-    earth.Display();
-    mars.Display();
-    
-    stroke(255);
-    noFill();
-    
-    beginShape();
-    for(float angle = 0; angle < TWO_PI + 1; angle += 0.1)
-    {
-        float x = earth.distance * cos(angle);
-        float y = earth.distance * sin(angle);
-        float z = earth.curveAmount * sin(angle);
-        vertex(x, y, z);
-    }
-    endShape();
+    planet1.Display();
+    planet2.Display();
+    planet3.Display();
+    planet4.Display();
+    planet5.Display();
+    planet6.Display();
+
+    sun.ShowOrbit(planet1);
+    sun.ShowOrbit(planet2);
+    sun.ShowOrbit(planet3);
+    sun.ShowOrbit(planet4);
+    sun.ShowOrbit(planet5);
+    sun.ShowOrbit(planet6);
 }
 
 void LoadFiles()
@@ -81,14 +87,5 @@ void LoadFiles()
     for (int i = 0; i < textures.length; i++)
     {
         textures[i] = loadImage("Textures/PlanetTextures/" + filenames[i]);
-    }
-}
-
-void LoadStars()
-{
-    for (int i = 0; i < x.length; i++)
-    {
-        x[i] = random(width) * 4 - 1100;
-        y[i] = random(height) * 4 - 600;
     }
 }
