@@ -25,7 +25,7 @@ void setup()
 
     stars = new ArrayList<Star>();
 
-    for(int i = 0; i < 500; i++)
+    for(int i = 0; i < 1500; i++)
     {
         float x = random(-width, width);
         float y = random(height);
@@ -57,7 +57,7 @@ void draw()
 {
     background(0);
     translate(width / 2, (height / 2) - 250, -500);
-    rotateX(180);   
+    //rotateX(180);   
     
     for (Star star : stars)
     {
