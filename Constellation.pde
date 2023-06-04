@@ -1,19 +1,36 @@
 class Constellation
 {
-  int num_stars;
-  PVector position_cons;
-  PVector velocity_cons;
+  Constellation_Star[] total_stars;
+
+
+  Constellation(Constellation_Star[] stars_in_constellation)
+  {
+    for (int i = 0; i < stars_in_constellation.lenght; ++i)
+    {
+      total_stars[i] = new Constellation_Star;
+    }
+    
+  }
+   
+  void compute_constellation()
+  {
+
+  }
+}
+
+class Constellation_Star
+{
+  PVector position_star;
+  PVector velocity_star;
   
   float mass, damping;
   
   float dock;
   
   boolean is_fixed;
-  
-  Constellation(int amount, PVector p, PVector v)
-  {
-    num_stars = amount;
-    
+
+  Constellation_Star(PVector p, PVector v)
+  {    
     position_cons = p;
     velocity_cons = v;
     
@@ -22,9 +39,12 @@ class Constellation
     
     damping = 0.4;
     is_fixed = true;
+
+    star_movement();
+    display_star();
   }
-  
-  void constellation_fall()
+
+  void star_movement()
   {
     PVector strength = new PVector(0.0,0.0);
     PVector acceleration = new PVector(0.0,0.0);
@@ -49,12 +69,11 @@ class Constellation
     position_cons.x += velocity_cons.x * deltaT;
     position_cons.y += velocity_cons.y * deltaT;
   }
-  
-  void display_constellation()
+
+  void display_star()
   {
     stroke(255);
     strokeWeight(2);
     point(position_cons.x, position_cons.y);
   }
-  
 }
