@@ -14,7 +14,7 @@ class Constellation
       }
       else
       {
-        total_stars.add(new Constellation_Star(new PVector(random(total_stars.get(i-1).position_star.x - 50, total_stars.get(i-1).position_star.x + 50), random(init_pos.y, init_pos.y + 1.5) ), new PVector(0.0,0.0)));
+        total_stars.add(new Constellation_Star(new PVector(random(initial_position.x - 200, initial_position.x + 200), random(total_stars.get(i-1).position_star.y - 50, total_stars.get(i-1).position_star.y + 50) ), new PVector(0.0,0.0)));
       }
     }
     
@@ -69,7 +69,7 @@ class Constellation_Star
     float deltaT = 0.04;
     
     strength.x = 0.0;
-    strength.y = 0.0;
+    strength.y = -9.8;
     
     strength.x += -damping * velocity_star.x;
     strength.y += -damping * velocity_star.y;
@@ -83,8 +83,8 @@ class Constellation_Star
     velocity_star.x += acceleration.x * deltaT;
     velocity_star.y += acceleration.y * deltaT;
     
-    velocity_star.x += velocity_star.x * deltaT;
-    velocity_star.y += velocity_star.y * deltaT;
+    position_star.x += velocity_star.x * deltaT;
+    position_star.y += velocity_star.y * deltaT;
   }
 
   void display_star()
