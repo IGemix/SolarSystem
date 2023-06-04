@@ -1,20 +1,20 @@
 class Constellation
 {
   PVector initial_position;
-  Constellation_Star[] total_stars;
+  ArrayList<Constellation_Star> total_stars = new ArrayList();
   
-  Constellation(PVector init_pos, Constellation_Star[] stars_in_constellation)
+  Constellation(PVector init_pos, int num_of_stars)
   {
     PVector initial_position = init_pos;
-    for (int i = 0; i < stars_in_constellation.length; ++i)
+    for (int i = 0; i < num_of_stars; ++i)
     {
       if(i < 1)
       {
-        total_stars[i] = new Constellation_Star(initial_position, new PVector(0.0,0.0));
+        total_stars.add(new Constellation_Star(initial_position, new PVector(0.0,0.0))); 
       }
       else
       {
-        total_stars[i] = new Constellation_Star(new PVector(random(total_stars[i-1].position_star.x - 1.5, total_stars[i-1].position_star.x + 1.5), random(init_pos.y, init_pos.y + 1.5) ), new PVector(0.0,0.0));
+        total_stars.add(new Constellation_Star(new PVector(random(total_stars.get(i-1).position_star.x - 1.5, total_stars.get(i-1).position_star.x + 1.5), random(init_pos.y, init_pos.y + 1.5) ), new PVector(0.0,0.0)));
       }
     }
     
@@ -22,10 +22,10 @@ class Constellation
    
   void compute_constellation()
   {
-    for (int i = 0; i < total_stars.length; ++i)
+    for (int i = 0; i < total_stars.size(); ++i)
     {
-      total_stars[i].star_movement();
-      total_stars[i].display_star(); 
+      total_stars.get(i).star_movement();
+      total_stars.get(i).display_star(); 
     }
     
   }
@@ -88,5 +88,6 @@ class Constellation_Star
     stroke(255);
     strokeWeight(2);
     point(position_star.x, position_star.y);
+    // print("Pos Star: ", position_star.x);
   }
 }

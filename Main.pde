@@ -18,8 +18,11 @@ Planet moon3;
 
 ArrayList<Star> stars;
 
+Constellation constellation1;
+
 void setup() 
 {
+    // fullScreen(P3D);
     size(800, 600, P3D);
     LoadFiles();
 
@@ -47,6 +50,8 @@ void setup()
     planet1.AddMoon(moon1);
     planet2.AddMoon(moon2);
     planet3.AddMoon(moon3);
+    
+    constellation1 = new Constellation(new PVector(width/2, height/2), 4);
 
     estereoscopia = new Camera3D(this); 
     estereoscopia.setBackgroundColor(color(255));
@@ -70,6 +75,12 @@ void draw()
     UpdatePlanets();
     DisplayPlanets();
     ShowOrbitPlanets();
+    ComputeConstellations();
+}
+
+void ComputeConstellations()
+{
+    constellation1.compute_constellation();
 }
 
 void UpdatePlanets()
