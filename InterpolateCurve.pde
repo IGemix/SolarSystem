@@ -11,7 +11,7 @@ class InterpolateCurve
     int curveWeight;
 
     float curvePoint = 0;
-    float speed = 0.04;
+    float speed = 0.004;
 
     InterpolateCurve(PVector[] controlPoints, int numOfPoints, color curveColor, int curveWeight)
     {
@@ -55,9 +55,14 @@ class InterpolateCurve
         coefficients[3].y = -4.5 * controlPoints[0].y + 13.5 * controlPoints[1].y - 13.5 * controlPoints[2].y + 4.5 * controlPoints[3].y;
     }
 
-     void MoveItem()
+    void MoveItem()
     {
         curvePoint += speed;
+        
+        if(curvePoint >= 1)
+        {
+            curvePoint = 0;
+        }
         
         float x = coefficients[0].x +
         coefficients[1].x * curvePoint +
@@ -69,9 +74,10 @@ class InterpolateCurve
         coefficients[2].y * curvePoint * curvePoint +
         coefficients[3].y * curvePoint * curvePoint * curvePoint;
 
-        strokeWeight(100);
-        stroke(0,0,255);
+        strokeWeight(20);
+        stroke(255, 255, 0);
         point(x, y);
+        strokeWeight(1);
     }
     
     void DrawCurve()
@@ -80,7 +86,7 @@ class InterpolateCurve
       
         strokeWeight(curveWeight);
         stroke(curveColor);
-        
+                
         float uIncrement = 1f / (float)numOfPoints;
         
         float x;

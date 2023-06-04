@@ -1,3 +1,4 @@
+
 import java.io.File;
 import camera3D.Camera3D; 
 
@@ -16,22 +17,26 @@ Planet moon1;
 Planet moon2;
 Planet moon3;
 
+int totalStars = 100;
+
 ArrayList<Star> stars;
 
-Constellation constellation1;
+boolean useEuler;
+boolean seeBezier;
+boolean seeInterpolation;
+boolean restartCurves;
 
 void setup() 
 {
-    // fullScreen(P3D);
     size(800, 600, P3D);
     LoadFiles();
 
     stars = new ArrayList<Star>();
 
-    for(int i = 0; i < 1000; i++)
+    for(int i = 0; i < totalStars; i++)
     {
         float x = random(-width, width);
-        float y = random(height);
+        float y = random(-height, height);
         stars.add(new Star(x, y));
     }
 
@@ -50,8 +55,6 @@ void setup()
     planet1.AddMoon(moon1);
     planet2.AddMoon(moon2);
     planet3.AddMoon(moon3);
-    
-    constellation1 = new Constellation(new PVector(width/2, height/2), 4);
 
     estereoscopia = new Camera3D(this); 
     estereoscopia.setBackgroundColor(color(255));
@@ -68,19 +71,29 @@ void draw()
     {
         star.Update();
         star.Display();
-        //star.bezierCurve.DrawCurve();
-        //star.interpolateCurve.DrawCurve();
+        /*
+        star.UseBezierCurve();
+        star.UseInterpolateCurve();
+        star.bezierCurve.DrawCurve();
+        star.interpolateCurve.DrawCurve();
+        */
     }
-
+  
+    stars.get(0).UseBezierCurve();
+    stars.get(0).UseInterpolateCurve();
+    
+    if (seeBezier) 
+    {
+        stars.get(0).bezierCurve.DrawCurve();
+    }
+    if (seeInterpolation) 
+    {
+        stars.get(0).interpolateCurve.DrawCurve();
+    }
+    
     UpdatePlanets();
     DisplayPlanets();
     ShowOrbitPlanets();
-    ComputeConstellations();
-}
-
-void ComputeConstellations()
-{
-    constellation1.compute_constellation();
 }
 
 void UpdatePlanets()
@@ -123,5 +136,25 @@ void LoadFiles()
     for (int i = 0; i < textures.length; i++)
     {
         textures[i] = loadImage("Textures/PlanetTextures/" + filenames[i]);
+    }
+}
+
+void keyPressed()
+{
+    if(key == '1')
+    {
+        useEuler = !useEuler;
+    }
+    if(key == '2')
+    {
+        seeBezier = !seeBezier;
+    }
+    if(key == '3')
+    {
+        seeInterpolation = !seeInterpolation;
+    }
+    if(key == '4')
+    {
+        restartCurves = !restartCurves;
     }
 }
