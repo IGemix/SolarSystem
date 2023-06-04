@@ -1,20 +1,32 @@
 class Constellation
 {
+  PVector initial_position;
   Constellation_Star[] total_stars;
-
-
-  Constellation(Constellation_Star[] stars_in_constellation)
+  
+  Constellation(PVector init_pos, Constellation_Star[] stars_in_constellation)
   {
-    for (int i = 0; i < stars_in_constellation.lenght; ++i)
+    PVector initial_position = init_pos;
+    for (int i = 0; i < stars_in_constellation.length; ++i)
     {
-      total_stars[i] = new Constellation_Star;
+      if(i < 1)
+      {
+        total_stars[i] = new Constellation_Star(init_pos, new PVector(0.0,0.0));
+      }
+      else
+      {
+        total_stars[i] = new Constellation_Star(new PVector(random(total_stars[i-1].position_star.x - 1.5, total_stars[i-1].position_star.x + 1.5), random(init_pos.y, init_pos.y + 1.5) ), new PVector(0.0,0.0));
+      }
     }
     
   }
    
   void compute_constellation()
   {
-
+    /*for (int i = 0; i < total_stars.length; ++i)
+    {
+      
+    }
+    */
   }
 }
 
@@ -31,8 +43,8 @@ class Constellation_Star
 
   Constellation_Star(PVector p, PVector v)
   {    
-    position_cons = p;
-    velocity_cons = v;
+    position_star = p;
+    velocity_star = v;
     
     mass = 1.0;
     dock = 0.3;
@@ -54,26 +66,26 @@ class Constellation_Star
     strength.x = 0.0;
     strength.y = 0.0;
     
-    strength.x += -damping * velocity_cons.x;
-    strength.y += -damping * velocity_cons.y;
+    strength.x += -damping * velocity_star.x;
+    strength.y += -damping * velocity_star.y;
     
-    strength.x += -dock * (velocity_cons.x);
-    strength.y += -dock * (velocity_cons.y);
+    strength.x += -dock * (velocity_star.x);
+    strength.y += -dock * (velocity_star.y);
     
     acceleration.x += strength.x / mass;
     acceleration.y += strength.y / mass;
     
-    velocity_cons.x += acceleration.x * deltaT;
-    velocity_cons.y += acceleration.y * deltaT;
+    velocity_star.x += acceleration.x * deltaT;
+    velocity_star.y += acceleration.y * deltaT;
     
-    position_cons.x += velocity_cons.x * deltaT;
-    position_cons.y += velocity_cons.y * deltaT;
+    velocity_star.x += velocity_star.x * deltaT;
+    velocity_star.y += velocity_star.y * deltaT;
   }
 
   void display_star()
   {
     stroke(255);
     strokeWeight(2);
-    point(position_cons.x, position_cons.y);
+    point(position_star.x, position_star.y);
   }
 }
