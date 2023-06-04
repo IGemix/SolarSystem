@@ -14,7 +14,7 @@ class Constellation
       }
       else
       {
-        total_stars.add(new Constellation_Star(new PVector(random(total_stars.get(i-1).position_star.x - 1.5, total_stars.get(i-1).position_star.x + 1.5), random(init_pos.y, init_pos.y + 1.5) ), new PVector(0.0,0.0)));
+        total_stars.add(new Constellation_Star(new PVector(random(total_stars.get(i-1).position_star.x - 50, total_stars.get(i-1).position_star.x + 50), random(init_pos.y, init_pos.y + 1.5) ), new PVector(0.0,0.0)));
       }
     }
     
@@ -25,7 +25,11 @@ class Constellation
     for (int i = 0; i < total_stars.size(); ++i)
     {
       total_stars.get(i).star_movement();
-      total_stars.get(i).display_star(); 
+      total_stars.get(i).display_star();
+      if(i >= 1)
+      {
+        line(total_stars.get(i).position_star.x, total_stars.get(i).position_star.y, total_stars.get(i-1).position_star.x, total_stars.get(i-1).position_star.y);
+      }
     }
     
   }
